@@ -1,0 +1,17 @@
+{
+    "name": "ganatrainfo/supabase",
+    "autoload": {
+        "psr-4": {
+            "Ganatrainfo\\Supabase\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "hemangzellis",
+            "email": "hemang@zellis.com.au"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
