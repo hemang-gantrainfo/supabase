@@ -3,9 +3,14 @@ import { Client } from "pg";
 export default async function handler(req, res) {
   const client = new Client({
     connectionString: process.env.POSTGRES_URL,
+
+    // 🔥 Force SSL override
     ssl: {
       rejectUnauthorized: false,
     },
+
+    // 🔥 IMPORTANT: ignore SSL from URL
+    options: "-c sslmode=no-verify",
   });
 
   try {
@@ -21,7 +26,7 @@ export default async function handler(req, res) {
     });
 
   } catch (err) {
-    console.error("DB ERROR:", err);
+    console.error("DB ERROR FULL:", err);
 
     return res.status(500).json({
       status: "❌ Connection Failed",
