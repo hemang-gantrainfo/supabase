@@ -1,7 +1,4 @@
 import { Client } from "pg";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 export default async function handler(req, res) {
   const client = new Client({
@@ -15,29 +12,18 @@ export default async function handler(req, res) {
     },
   });
 
-  let status = "❌ Not Connected";
-  let error = "";
-
   try {
     await client.connect();
-
-    const result = await client.query("SELECT 1");
-
-    if (result) {
-      status = "✅ Connected to Supabase successfully!";
-    }
-
+    await client.query("SELECT 1");
     await client.end();
 
     return res.status(200).json({
-      status,
+      status: "✅ Connected to Supabase successfully!",
     });
   } catch (err) {
-    error = err.message;
-
     return res.status(500).json({
       status: "❌ Connection Failed",
-      error,
+      error: err.message,
     });
   }
 }
